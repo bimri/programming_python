@@ -14,3 +14,20 @@ print(sum)
 We can apply such general-purpose tools in a variety of ways at the shell command line
 to sort and sum arbitrary files and program outputs
 '''
+
+
+# adder2.py
+# import sys
+# sum = 0
+# while True:
+#     line = sys.stdin.readline()
+#     if not line: break
+#     sum += int(line)
+# print(sum)
+
+
+# adder3.py
+# import sys
+# sum = 0
+# for line in sys.stdin: sum += int(line)
+# print(sum)
