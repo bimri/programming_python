@@ -1,0 +1,25 @@
+<HTML>
+    <head>
+        <META http-equiv="Refresh" content="10; URL=http//$server$/$home$/$file$">
+        <title>Site Redirection Page: $file$</title>
+    </head>
+    <body>
+        <h1>This page has moved</h1>
+        <p> This page now lives at this address:
+            <a href="http://$server$/$home$/$file$">
+                http://$server$/$home$/$file$</a>
+        
+        <p>Please click on the new address to jump to this page, and
+            update any links accordingly. You will be redirected shortly.
+        </p>
+    <HR>
+    </Body>
+</HTML>
+
+
+<!-- 
+focus on just the parts surrounded by
+dollar signs: the strings $server$, $home$, and $file$ are targets to be replaced with real
+values by global text substitutions. They represent items that vary per site relocation
+and file. 
+-->
