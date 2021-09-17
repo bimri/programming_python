@@ -1,0 +1,28 @@
+Programming Entry widgets
+
+    ent.insert(0, 'some text')              # set value
+    value = ent.get()                       # fetch value (a string)
+
+inserted. Here, “0” means the front because offsets start at zero, and integer 0 and string
+'0' mean the same thing (tkinter method arguments are always converted to strings if
+needed).
+
+If the Entry widget might already contain text, you also generally need to delete
+its contents before setting it to a new value, or else new text will simply be added to
+the text already present:
+    ent.delete(0, END)                      # first, delete from start to end
+    ent.insert(0, 'some text')              # then set value
+
+The name END here is a preassigned tkinter constant denoting the end of the widget.
+Since the widget is empty after the deletion, this statement
+sequence is equivalent to the prior one:
+
+    ent.delete('0', END) # delete from start to end
+    ent.insert(END, 'some text') # add at end of empty text
+
+Either way, if you don’t delete the text first, new text that is inserted is simply added:
+    def fetch():
+        print('Input => "%s"' % ent.get())      # get text
+        ent.insert(END, 'x')                    # to clear: ent.delete('0', END)
+        ent.insert(0, 'x')                      # new text simply added
+
