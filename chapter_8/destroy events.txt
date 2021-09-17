@@ -1,0 +1,27 @@
+More on <Destroy> events and the quit and destroy methods
+
+the <Destroy> event (whose
+name is case significant) is run when a widget is being destroyed
+script method calls and window closures in general, including those at program exit.
+If you bind this on a window, it will be triggered once for each widget in the window;
+the callback’s event argument widget attribute gives the widget being destroyed, and
+you can check this to detect a particular widget’s destruction. If you bind this on a
+specific widget instead, it will be triggered once for that widget’s destruction only.
+
+It’s important to know that a widget is in a “half dead” state (Tk’s terminology) when
+this event is triggered—it still exists, but most operations on it fail. Because of that, the
+<Destroy> event is not intended for GUI activity in general; for instance, checking a text
+widget’s changed state or fetching its content in a <Destroy> handler can both fail with
+exceptions. In addition, this event’s handler cannot cancel the destruction in general
+and resume the GUI; if you wish to intercept and verify or suppress window closes
+when a user clicks on a window’s X button, use WM_DELETE_WINDOW in top-level windows’
+protocol methods.
+ 
+You should also know that running a tkinter widget’s quit method does not trigger any
+<Destroy> events on exit, and even leads to a fatal Python error on program exit in 3.X
+if any <Destroy> event handlers are registered. Because of this, programs that bind this
+event for non-GUI window exit actions should usually call destroy instead of quit to
+close, and rely on the fact that a program exits when the last remaining or only Tk root
+window (default or explicit) is destroyed as described earlier. This precludes using
+quit for immediate shutdowns, though you can still run sys.exit for brute-force exits.
+

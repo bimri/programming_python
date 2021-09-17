@@ -1,0 +1,29 @@
+Event binding protocols
+
+<KeyPress>
+To catch the press of a single key on the keyboard, register a handler for the
+<KeyPress> event identifier; this is a lower-level way to input data in GUI programs
+than the Entry widget covered in the next section. The key pressed is returned in
+ASCII string form in the event object passed to the callback handler (event.char).
+Other attributes in the event structure identify the key pressed in lower-level detail.
+Key presses can be intercepted by the top-level root window widget or by a widget
+that has been assigned keyboard focus with the focus method used by this script.
+
+<B1-Motion>
+This script also catches mouse motion while a button is held down: the registered
+<B1-Motion> event handler is called every time the mouse is moved while the left
+button is pressed and receives the current X/Y coordinates of the mouse pointer in
+its event argument (event.x, event.y). Such information can be used to implement
+object moves, drag-and-drop, pixel-level painting, and so on (e.g., see the PyDraw
+examples in Chapter 11).
+
+<Button-3>, <Button-2>
+This script also catches right and middle mouse button clicks (known as buttons
+3 and 2). To make the middle button 2 click work on a two-button mouse, try
+clicking both buttons at the same time; if that doesn’t work, check your mouse
+setting in your properties interface (the Control Panel on Windows).
+
+<Return>, <Up>
+To catch more specific kinds of key presses, this script registers for the Return/
+Enter and up-arrow key press events; these events would otherwise be routed to
+the general <KeyPress> handler and require event analysis.
