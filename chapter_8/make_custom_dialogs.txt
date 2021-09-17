@@ -1,0 +1,33 @@
+Making custom dialogs modal
+
+Now, when the script is run with a command-line argument (e.g.,
+python dlg-custom.py 1), it makes its pop ups modal instead. Because modal dialogs
+grab all of the interface’s attention, the main window becomes inactive in this mode
+until the pop up is killed.
+
+In fact, the call to the dialog function in this script doesn’t return until the dialog
+window on the left is dismissed by pressing its OK button. The net effect is that modal
+dialogs impose a function call–like model on an otherwise event-driven programming
+model; user inputs can be processed right away, not in a callback handler triggered at
+some arbitrary point in the future.
+
+Forcing such a linear control flow on a GUI takes a bit of extra work, though. The secret
+to locking other windows and waiting for a reply boils down to three lines of code,
+which are a general pattern repeated in most custom modal dialogs.
+    win.focus_set()
+    Makes the window take over the application’s input focus, as if it had been clicked
+    with the mouse to make it the active window. This method is also known by the
+    synonym focus, and it’s also common to set the focus on an input widget within
+    the dialog (e.g., an Entry) rather than on the entire window.
+    
+    win.grab_set()
+    Disables all other windows in the application until this one is destroyed. The user
+    cannot interact with other windows in the program while a grab is set.
+    
+    win.wait_window()
+    Pauses the caller until the win widget is destroyed, but keeps the main eventprocessing
+    loop (mainloop) active during the pause. That means that the GUI at
+    large remains active during the wait; its windows redraw themselves if covered and
+    uncovered, for example. When the window is destroyed with the destroy method,
+    it is erased from the screen, the application grab is automatically released, and this
+    method call finally returns.

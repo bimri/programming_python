@@ -1,0 +1,21 @@
+Other ways to be modal
+
+Modal dialogs are typically implemented by waiting for a newly created pop-up window’s
+destroy event.
+
+it’s possible to create dialog windows ahead of time, and show and hide them as needed
+with the top-level window’s deiconify and withdraw methods.
+
+Given that window creation speed is generally
+fast enough as to appear instantaneous today, this is much less common than making
+and destroying a window from scratch on each interaction.
+
+It’s also possible to implement a modal state by waiting for a tkinter variable to change
+its value, instead of waiting for a window to be destroyed.
+
+This scheme allows a long-lived dialog box’s callback handler to signal a state change to a
+waiting main program, without having to destroy the dialog box.
+
+Finally, if you call the mainloop method recursively, the call won’t return until the widget
+quit method has been invoked. The quit method terminates a mainloop call, and so
+normally ends a GUI program.
