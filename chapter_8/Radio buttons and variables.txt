@@ -1,0 +1,14 @@
+So, why variables here? For one thing, radio buttons also have no “get” widget method
+to fetch the selection in the future. More importantly, in radio button groups, the
+value and variable settings turn out to be the whole basis of single-choice behavior.
+
+To make radio buttons work normally at all, it’s crucial that they are all associated
+with the same tkinter variable and have distinct value settings.
+
+But it’s also true that changing a variable in any way automatically changes
+every widget it is associated with. In the world of radio buttons, pressing a button sets
+a shared variable, which in turn impacts other buttons associated with that variable.
+
+This ripple effect is a bit subtle, but it might help to know that within a group of radio
+buttons sharing the same variable, if you assign a set of buttons the same value, the
+entire set will be selected if any one of them is pressed.
