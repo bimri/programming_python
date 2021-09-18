@@ -1,0 +1,22 @@
+"Checkbutton, Radiobutton, and Scale"
+'''
+three widget types: the Checkbutton (a multiple-choice input
+widget), the Radiobutton (a single-choice device), and the Scale (sometimes known as
+a “slider”).
+'''
+
+'Checkbuttons'
+'''
+The Checkbutton and Radiobutton widgets are designed to be associated with tkinter
+variables: clicking the button changes the value of the variable, and setting the variable
+changes the state of the button to which it is linked.
+
+• A collection of Checkbuttons implements a multiple-choice interface by assigning
+each button a variable of its own.
+• A collection of Radiobuttons imposes a mutually exclusive single-choice model by
+giving each button a unique value and the same tkinter variable.
+'''
+
+Both kinds of buttons provide both command and variable options. The command option
+lets you register a callback to be run immediately on button-press events, much like
+normal Button widgets.
