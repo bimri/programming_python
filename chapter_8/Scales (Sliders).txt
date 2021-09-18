@@ -1,0 +1,15 @@
+Scales (sometimes called “sliders”) are used to select among a range of numeric values.
+Moving the scale’s position with mouse drags or clicks moves the widget’s value among
+a range of integers and triggers Python callbacks if registered.
+
+Like check buttons and radio buttons, scales have both a command option for registering
+an event-driven callback handler to be run right away when the scale is moved, and a
+variable option for associating a tkinter variable that allows the scale’s position to be
+fetched and set at arbitrary times. You can process scale settings when they are made,
+or let the user pick a setting for later use.
+
+In addition, scales have a third processing option—get and set methods that scripts
+may call to access scale values directly without associating variables. Because scale
+command movement callbacks also get the current scale setting value as an argument, it’s
+often enough just to provide a callback for this widget, without resorting to either linked
+variables or get/set method calls.
