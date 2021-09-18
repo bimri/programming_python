@@ -1,0 +1,17 @@
+Supported file types
+    At present, the standard tkinter PhotoImage widget supports only GIF, PPM, and
+    PGM graphic file formats, and BitmapImage supports X Windows-style .xbm bitmap
+    files. This may be expanded in future releases, and you can convert photos in other
+    formats to these supported formats ahead of time, of course. But as we’ll see later
+    in this chapter, it’s easy to support additional image types with the PIL open source
+    extension toolkit and its PhotoImage replacement.
+
+Hold on to your images!
+    Unlike all other tkinter widgets, an image is utterly lost if the corresponding Python
+    image object is garbage collected. That means you must retain an explicit reference
+    to image objects for as long as your program needs them (e.g., assign them to a
+    long-lived variable name, object attribute, or data structure component). Python
+    does not automatically keep a reference to the image, even if it is linked to other
+    GUI components for display. Moreover, image destructor methods erase the image
+    from memory.
+    
