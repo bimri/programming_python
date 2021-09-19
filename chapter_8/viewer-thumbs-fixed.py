@@ -17,7 +17,7 @@ def viewer(imgdir, kind=Toplevel, cols=None):
     win.title('Viewer: ' + imgdir)
     thumbs = makeThumbs(imgdir)
     if not cols:
-        cols = int(math.ceil(math.sqrt(len(thumbs)))) # fixed or N x N
+        cols = int(math.ceil(math.sqrt(len(thumbs))))           # fixed or N x N
     
     savephotos = []
     while thumbs:
@@ -25,7 +25,7 @@ def viewer(imgdir, kind=Toplevel, cols=None):
         row = Frame(win)
         row.pack(fill=BOTH)
         for (imgfile, imgobj) in thumbsrow:
-            size = max(imgobj.size) # width, height
+            size = max(imgobj.size)                             # width, height
             photo = PhotoImage(imgobj)
             link = Button(row, image=photo)
             handler = lambda savefile=imgfile: ViewOne(imgdir, savefile)

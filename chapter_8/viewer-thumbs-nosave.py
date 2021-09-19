@@ -21,10 +21,10 @@ def makeThumbs(imgdir, size=(100, 100), subdir='thumbs'):
     for imgfile in os.listdir(imgdir):
         imgpath = os.path.join(imgdir, imgfile)
         try:
-            imgobj = Image.open(imgpath)  # make image object from file
+            imgobj = Image.open(imgpath)            # make image object from file
             imgobj.thumbnail(size)
             thumbpath = os.path.join(imgdir, subdir, imgfile)
-            imgobj.save(thumbpath)  # save thumb image to new file
+            imgobj.save(thumbpath)                  # save thumb image to new file
             thumbs.append(thumbpath)
         except:
             print("Skipping: ", imgpath)

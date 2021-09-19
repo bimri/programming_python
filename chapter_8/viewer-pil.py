@@ -2,6 +2,7 @@
 show one image with PIL photo replacement object
 handles many more image types; install PIL first: placed in Lib\site-packages
 """
+
 import os, sys
 from tkinter import *
 from PIL.ImageTk import PhotoImage                  # <== use PIL replacement class

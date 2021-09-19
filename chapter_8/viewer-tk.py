@@ -20,7 +20,7 @@ imgpath = os.path.join(imgdir, imgfile)
 
 win = Tk()
 win.title(imgfile)
-imgobj = PhotoImage(file=imgpath)           # display photo on a Label
-Label(win, image=imgobj).pack()
+imgobj = PhotoImage(file=imgpath)           
+Label(win, image=imgobj).pack()             # display photo on a Label
 print(imgobj.width(), imgobj.height())      # show size in pixels before destroyed
 win.mainloop()

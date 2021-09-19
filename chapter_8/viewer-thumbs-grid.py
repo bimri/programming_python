@@ -19,7 +19,7 @@ def viewer(imgdir, kind=Toplevel, cols=None):
     win.title('Viewer: ' + imgdir)
     thumbs = makeThumbs(imgdir)
     if not cols:
-        cols = int(math.ceil(math.sqrt(len(thumbs)))) # fixed or N x N
+        cols = int(math.ceil(math.sqrt(len(thumbs))))           # fixed or N x N
     
     rownum = 0
     savephotos = []
