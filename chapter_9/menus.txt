@@ -1,0 +1,28 @@
+Menus
+
+Menus are the pull-down lists you’re accustomed to seeing at the top of a window.
+The options within a menu might trigger actions, much like clicking on a button; they may
+also open other “cascading” submenus that list more options, pop up dialog windows,
+and so on.
+
+In tkinter, there are two kinds of menus you can add to your scripts: toplevel
+window menus and frame-based menus. The former option is better suited to
+whole windows, but the latter also works as a nested component.
+
+This scheme is based on building trees of Menu wi dget obj ects. Si mpl y ass oci at e one t oplevel
+Menu with the window, add other pull-down Menu objects as cascades of the toplevel
+Menu, and add entries to each of the pull-down objects. Menus are cross-linked with
+the next higher level, by using parent widget arguments and the Menu widget’s
+add_cascade method. It works like this:
+    1. Create a topmost Menu as the child of the window widget and configure the window’s
+    menu attribute to be the new Menu.
+
+    2. For each pull-down object, make a new Menu as the child of the topmost Menu and
+    add the child as a cascade of the topmost Menu using add_cascade.
+    
+    3. Add menu selections to each pull-down Menu fr o m st e p 2, usi ng t he command opti ons
+    of add_command to register selection callback handlers.
+    
+    4. Add a cascading submenu by making a new Menu as t he c hil d of t he Menu t he cascade
+    extends and using add_cascade to link the parent to the child.
+    
