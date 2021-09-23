@@ -1,0 +1,46 @@
+To avoid being blocked
+this way, the GUI must run long-running tasks in parallel, usually with threads that
+can share program state. That way, the main GUI thread is freed up to update the
+display and respond to new user interactions while threads do other work.
+
+only the main thread should generally
+update a GUI’s display, threads you start to handle long-running tasks should not
+update the display with results themselves. Rather, they should place data on a queue
+(or other mechanism), to be picked up and displayed by the main GUI thread. To make
+this work, the main thread typically runs a timer-based loop that periodically checks
+the queue for new results to be displayed. Spawned threads produce and queue data
+but know nothing about the GUI; the main GUI thread consumes and displays results
+but does not generate them.
+
+Because of its division of labor, we usually call this a producer/consumer model—task
+threads produce data which the GUI thread consumes. The long-running task threads
+are also sometimes called workers, because they handle the work of producing results
+behind the scenes, for the GUI to present to a user. In some sense, the GUI is also a
+client to worker thread servers, though that terminology is usually reserved for more
+specific process-based roles; servers provide data sources which are longer-lived and
+more loosely coupled (though a GUI can also display data from independent servers).
+Whatever we call it, this model both avoids blocking the GUI while tasks run and avoids
+potentially parallel updates to the GUI itself.
+
+As a more concrete example, suppose your GUI needs to display telemetry data sent in
+real time from a satellite over sockets (an IPC tool introduced in Chapter 5). Your
+program has to be responsive enough to not lose incoming data, but it also cannot get
+stuck waiting for or processing that data. To achieve both goals, spawn threads that
+fetch the incoming data and throw it on a queue, to be picked up and displayed periodically
+by the main GUI thread. With such a separation of labor, the GUI isn’t blocked
+by the satellite, nor vice versa—the GUI itself will run independently of the data
+streams, but because the data stream threads can run at full speed, they’ll be able to
+pick up incoming data as fast as it’s sent. GUI event loops are not generally responsive
+enough to handle real-time inputs. Without the data stream threads, we might lose
+incoming telemetry; with them, we’ll receive data as it is sent and display it as soon as
+the GUI’s event loop gets around to picking it up off the queue—plenty fast for the real
+human user to see. If no data is sent, only the spawned threads wait, not the GUI itself.
+
+In other scenarios, threads are required just so that the GUI remains active during longrunning
+tasks. While downloading a reply from a web server, for example, your GUI
+must be able to redraw itself if covered or resized. Because of that, the download call
+cannot be a simple function call; it must run in parallel with the rest of your program—
+typically, as a thread. When the result is fetched, the thread must notify the GUI that
+data is ready to be displayed; by placing the result on a queue, the notification is
+simple—the main GUI thread will find it the next time it checks the queue in its timer
+callback function.
