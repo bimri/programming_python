@@ -1,0 +1,12 @@
+GUIs pop up quite unexpectedly.
+
+Probably the real answer to converting a non-GUI program is to truly convert it—
+restructure it to initialize widgets on startup, call mainloop once to start event processing
+and display the main window, and move all program logic into callback functions triggered
+by user actions. Your original program’s actions become event handlers, and your
+original main flow of control becomes a program that builds a main window, calls the
+GUI’s event loop once, and waits.
+
+It’s possible, for instance, to launch GUI windows from a non-GUI main program, by
+calling the tkinter mainloop each time a window must be displayed.
+
