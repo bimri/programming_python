@@ -1,0 +1,15 @@
+it’s also possible to spawn the GUI part of your application as a
+completely separate program.
+
+This is a more advanced technique, but it can make
+integration simple for some applications because of the loose coupling it implies. It can,
+for instance, help with the guiStreams issues of the prior section, as long as inputs and
+outputs are communicated to the GUI over Inter-Process Communication (IPC)
+mechanisms, and the widget after method (or similar) is used by the GUI program to
+detect incoming output to be displayed. The non-GUI script would not be blocked by
+a mainloop call.
+
+The advantage
+to this approach is that it provides a separation of GUI and non-GUI code—the non-
+GUI script would have to be modified only to spawn and wait for user results to appear
+from the separate GUI program, but could otherwise be used as is.
