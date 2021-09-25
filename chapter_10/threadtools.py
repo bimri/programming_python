@@ -127,7 +127,6 @@ class ThreadCounter:
 #################################################################################
 
 if __name__ == '__main__': # self-test code when run
-<<<<<<< HEAD
     import time                                             
     from tkinter.scrolledtext import ScrolledText           # or PP4E.Gui.Tour.scrolledtext
     def onEvent(i):                                         # code that spawns thread
@@ -138,19 +137,6 @@ if __name__ == '__main__': # self-test code when run
                     onExit = threadexit,
                     onFail = threadfail,
                     onProgress = threadprogress)
-=======
-    import time                                             # or PP4E.Gui.Tour.scrolledtext
-    from tkinter.scrolledtext import ScrolledText
-    def onEvent(i):                                         # code that spawns thread
-        myname = 'thread-%s' % i
-        startThread(
-        action = threadaction,
-        args = (i, 3),
-        context = (myname,),
-        onExit = threadexit,
-        onFail = threadfail,
-        onProgress = threadprogress)
->>>>>>> 95a79dccf5cc7a9a8f46a3202a352351e8a8397c
     
     # thread's main action
     def threadaction(id, reps, progress):                   # what the thread does
@@ -163,17 +149,11 @@ if __name__ == '__main__': # self-test code when run
     def threadexit(myname):
         text.insert('end', '%s\texit\n' % myname)
         text.see('end')
-<<<<<<< HEAD
     
     def threadfail(exc_info, myname):
         text.insert('end', '%s\tfail\t%s\n' % (myname, exc_info[0]))
         text.see('end')
     
-=======
-    def threadfail(exc_info, myname):
-        text.insert('end', '%s\tfail\t%s\n' % (myname, exc_info[0]))
-        text.see('end')
->>>>>>> 95a79dccf5cc7a9a8f46a3202a352351e8a8397c
     def threadprogress(count, myname):
         text.insert('end', '%s\tprog\t%s\n' % (myname, count))
         text.see('end')
@@ -185,9 +165,5 @@ if __name__ == '__main__': # self-test code when run
     text.pack()
     threadChecker(text)                                     # start thread loop in main thread
     text.bind('<Button-1>',                                 # 3.x need list for map, range ok
-<<<<<<< HEAD
         lambda event: list(map(onEvent, range(6))) )
-=======
-    lambda event: list(map(onEvent, range(6))) )
->>>>>>> 95a79dccf5cc7a9a8f46a3202a352351e8a8397c
     text.mainloop()                                         # pop-up window, enter tk event loop
