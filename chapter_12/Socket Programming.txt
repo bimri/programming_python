@@ -1,0 +1,45 @@
+Python socket interface to perform low-level
+network communications.
+
+Python’s socket interfaces can be used
+directly, though, to implement custom network dialogs and to access standard protocols
+manually.
+
+Like the os POSIX module, Python’s socket module is just a thin wrapper
+(interface layer) over the underlying C library’s socket calls. Like Python files, it’s
+also object-based—methods of a socket object implemented by this module call out to
+the corresponding C library’s operations after data conversions. For instance, the C
+library’s send and recv function calls become methods of socket objects in Python.
+
+Python’s socket module supports socket programming on any machine that supports
+BSD-style sockets—Windows, Macs, Linux, Unix, and so on—and so provides a portable
+socket interface. In addition, this module supports all commonly used socket
+types—TCP/IP, UDP, datagram, and Unix domain—and can be used as both a network
+interface API and a general IPC mechanism between processes running on the same
+machine.
+
+From a functional perspective, sockets are a programmer’s device for transferring bytes
+between programs, possibly running on different computers. Although sockets themselves
+transfer only byte strings, we can also transfer Python objects through them by
+using Python’s pickle module.
+
+Python’s struct module can also be used to format Python objects as packed binary
+data byte strings for transmission, but is generally limited in scope to objects that map
+to types in the C programming language. The pickle module supports transmission of
+larger object, such as dictionaries and class instances. For other tasks, including most
+standard Internet protocols, simpler formatted byte strings suffice.
+
+Beyond basic data communication tasks, the socket module also includes a variety of
+more advanced tools. For instance, it has calls for the following and more:
+    • Converting bytes to a standard network ordering (ntohl, htonl)
+    • Querying machine name and address (gethostname, gethostbyname)
+    • Wrapping socket objects in a file object interface (sockobj.makefile)
+    • Making socket calls nonblocking (sockobj.setblocking)
+    • Setting socket timeouts (sockobj.settimeout)
+
+Provided your Python was compiled with Secure Sockets Layer (SSL) support, the
+ssl standard library module also supports encrypted transfers with its
+ssl.wrap_socket call. This call wraps a socket object in SSL logic, which is used in turn
+by other standard library modules to support the HTTPS secure website protocol
+(http.client and urllib.request), secure email transfers (poplib and smtplib), and
+more.
