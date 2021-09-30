@@ -1,0 +1,37 @@
+Running Socket Programs Locally
+
+There are two ways to run these scripts—on
+either the same machine or two different machines. To run the client and the server on
+the same machine, bring up two command-line consoles on your computer, start the
+server program in one, and run the client repeatedly in the other. The server keeps
+running and responds to requests made each time you run the client script in the other
+window.
+
+C:\...\PP4E\Internet\Sockets> python echo-server.py
+Server connected by ('127.0.0.1', 57666)
+Server connected by ('127.0.0.1', 57667)
+Server connected by ('127.0.0.1', 57668)
+
+The output here gives the address (machine IP name and port number) of each connecting
+client. Like most servers, this one runs perpetually, listening for client connection
+requests.
+
+
+C:\...\PP4E\Internet\Sockets> python echo-client.py
+Client received: b'Echo=>Hello network world'
+
+C:\...\PP4E\Internet\Sockets> python echo-client.py localhost spam Spam SPAM
+Client received: b'Echo=>spam'
+Client received: b'Echo=>Spam'
+Client received: b'Echo=>SPAM'
+
+C:\...\PP4E\Internet\Sockets> python echo-client.py localhost Shrubbery
+Client received: b'Echo=>Shrubbery'
+
+
+Because the server’s coded as an infinite loop, you
+may need to kill it with Task Manager on Windows when you’re done testing, because
+a Ctrl-C in the server’s console window is ignored; other platforms may fare better.
+
+sockets also work well as cross-program communications tools
+on a single machine.
