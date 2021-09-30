@@ -1,0 +1,18 @@
+Functionally, protocols may accomplish a familiar task, like reading email or posting
+a Usenet newsgroup message, but they ultimately consist of message bytes sent over
+sockets. The structure of those message bytes varies from protocol to protocol, is hidden
+by the Python library.
+
+Some protocols may define the contents of messages sent over sockets; others may
+specify the sequence of control messages exchanged during conversations. By defining
+regular patterns of communication, protocols make communication more robust. They
+can also minimize deadlock conditions—machines waiting for messages that never
+arrive.
+
+For example, the FTP protocol prevents deadlock by conversing over two sockets: one
+for control messages only and one to transfer file data. An FTP server listens for control
+messages (e.g., “send me a file”) on one port, and transfers file data over another. FTP
+clients open socket connections to the server machine’s control port, send requests,
+and send or receive file data over a socket connected to a data port on the server machine.
+FTP also defines standard message structures passed between client and server.
+The control message used to request a file, for instance, must follow a standard format.
