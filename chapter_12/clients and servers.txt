@@ -1,0 +1,41 @@
+To socket programmers, the standard protocols mean that port numbers 0 to 1023 are
+off-limits to scripts, unless they really mean to use one of the higher-level protocols.
+This is both by standard and by common sense.
+
+A Telnet program, for instance, can
+start a dialog with any Telnet-capable machine by connecting to its port, 23; without
+preassigned port numbers, each server might install Telnet on a different port. Similarly,
+websites listen for page requests from browsers on port 80 by standard; if they did not,
+you might have to know and type the HTTP port number of every site you visit while
+surfing the Net.
+
+By defining standard port numbers for services, the Net naturally gives rise to a client/
+server architecture. On one side of a conversation, machines that support standard
+protocols perpetually run a set of programs that listen for connection requests on the
+reserved ports. On the other end of a dialog, other machines contact those programs
+to use the services they export.
+
+We usually call the perpetually running listener program a server and the connecting
+program a client.
+
+Server
+    A machine that hosts websites usually runs a web server program that constantly
+    listens for incoming connection requests, on a socket bound to port 80. Often, the
+    server itself does nothing but watch for requests on its port perpetually; handling
+    requests is delegated to spawned processes or threads.
+
+Clients
+    Programs that wish to talk to this server specify the server machine’s name and
+    port 80 to initiate a connection. For web servers, typical clients are web browsers
+    like Firefox, Internet Explorer, or Chrome, but any script can open a client-side
+    connection on port 80 to fetch web pages from the server. The server’s machine
+    name can also be simply “localhost” if it’s the same as the client’s.
+
+And in some
+applications, the notion of client and server is blurred—programs can also pass bytes
+between each other more as peers than as master and subordinate. An agent in a peerto-
+peer file transfer system, for instance, may at various times be both client and server
+for parts of files transferred.
+
+computer on which a web server program
+runs may be called a web server machine
