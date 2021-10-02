@@ -1,0 +1,11 @@
+If multiple clients try to connect to the server, and it takes a long time to process a given
+client’s request, the server will fail.
+
+More accurately, if the cost of handling a given  request prevents the server from returning to 
+the code that checks for new clients in a timely manner, it won’t be able to keep up with all the 
+requests, and some clients will eventually be denied connections.
+
+In real-world client/server programs, it’s far more typical to code a server so as to avoid
+blocking new requests while handling a current client’s request. Perhaps the easiest
+way to do so is to service each client’s request in parallel—in a new process, in a new
+thread, or by manually switching (multiplexing) between clients in an event loop.
