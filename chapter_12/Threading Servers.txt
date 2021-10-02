@@ -1,0 +1,30 @@
+The forking model just described works well on Unix-like platforms in general, but it
+suffers from some potentially significant limitations:
+    Performance
+        On some machines, starting a new process can be fairly expensive in terms of time
+        and space resources.
+
+    Portability
+        Forking processes is a Unix technique; as we’ve learned, the os.fork call currently
+        doesn’t work on non-Unix platforms such as Windows under standard Python. As
+        we’ve also learned, forks can be used in the Cygwin version of Python on Windows,
+        but they may be inefficient and not exactly the same as Unix forks. And as we just
+        discovered, multiprocessing won’t help on Windows, because connected sockets
+        are not pickleable across process boundaries.
+
+    Complexity
+        If you think that forking servers can be complicated, you’re not alone. As we just
+        saw, forking also brings with it all the shenanigans of managing and reaping zombies—
+        cleaning up after child processes that live shorter lives than their parents. 
+
+One solution to all of these dilemmas is to use
+threads rather than processes. Threads run in parallel and share global (i.e., module
+and interpreter) memory.
+
+Because threads all run in the same process and memory space, they automatically share
+sockets passed between them, similar in spirit to the way that child processes inherit
+socket descriptors. Unlike processes, though, threads are usually less expensive to start,
+and work on both Unix-like machines and Windows under standard Python today.
+
+Furthermore, many (though not all) see threads as simpler to program—child threads
+die silently on exit, without leaving behind zombies to haunt the server.
