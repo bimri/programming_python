@@ -1,0 +1,18 @@
+So why use sockets in this redirection role at all? In short, for server independence and
+networked use cases.
+
+Notice how for command pipes it’s not clear who should be called
+“server” and “client,” since neither script runs perpetually.
+
+In fact, this is one of the
+major downsides of using command pipes like this instead of sockets—because the
+programs require a direct spawning relationship, command pipes do not support longerlived
+or remotely running servers the way that sockets do.
+
+With sockets, we can start client and server independently, and the server may continue
+running perpetually to serve multiple clients (albeit with some changes to our utility
+module’s listener initialization code).
+
+Moreover, passing in remote machine names to
+our socket redirection tools would allow a client to connect to a server running on a
+completely different machine.
