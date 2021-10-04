@@ -1,0 +1,29 @@
+The short story here is this: to avoid delayed outputs or deadlock, scripts that might
+send da
+    • Call sys.stdout.flush periodically to flush their printed output so it becomes
+    available as produced
+
+    • Be run with the -u Python command-line flag, if possible, to force the output stream
+    to be unbuffered. This works for unmodified programs spawned by pipe tools such
+    as os.popen.
+
+    • Use threads to read from sockets to avoid blocking, especially if the receiving program
+    is a GUI and it cannot depend upon the client to flush. This doesn’t really fix the problem—the spawned reader thread may be
+    blocked or deadlocked, too—but at least the GUI remains active during waits.
+
+    • Implement their own custom socket wrapper objects which intercept text write
+    calls, encode to binary, and route to a socket with send calls; socket.makefile is
+    really just a convenience tool, and we can always code a wrapper of our own for
+    more specific roles.
+
+    • Skip print altogether and communicate directly with the native interfaces of IPC
+    devices, such as socket objects’ raw send and recv methods—these transfer data
+    immediately and do not buffer data as file methods can. We can either transfer
+    simple byte strings this way or use the pickle module’s dumps and loads tools to
+    convert Python objects to and from byte strings for such direct socket transfer
+
+The latter option may be more direct (and the redirection utility module also returns
+the raw socket in support of such usage), but it isn’t viable in all scenarios, especially
+for existing or multimode scripts. In many cases, it may be most straightforward to use
+manual flush calls in shell-oriented programs whose streams might be linked to other
+programs through sockets.
