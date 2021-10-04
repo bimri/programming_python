@@ -1,0 +1,36 @@
+Because such stream tools are designed to operate on text-mode files, though, probably
+the biggest trick here is fooling them into operating on the inherently binary mode and
+very different method interface of sockets.
+
+The socket object makefile method comes in handy anytime you wish to process a
+socket with normal file object methods or need to pass a socket to an existing interface
+or program that expects a file. The socket wrapper object returned allows your scripts
+to transfer data over the underlying socket with read and write calls, rather than recv
+and send. Since input and print built-in functions use the former methods set, they will
+happily interact with sockets wrapped by this call, too.
+
+The makefile method also allows us to treat normally binary socket data as text instead
+of byte strings, and has additional arguments such as encoding that let us specify nondefault
+Unicode encodings for the transferred text—much like the built-in open and
+os.fdopen calls we met in Chapter 4 do for file descriptors. Although text can always
+be encoded and decoded with manual calls after binary mode socket transfers, make
+file shifts the burden of text encodings from your code to the file wrapper object.
+
+This equivalence to files comes in handy any time we want to use software that supports
+file interfaces. For example, the Python pickle module’s load and dump methods expect
+an object with a file-like interface (e.g., read and write methods), but they don’t require
+a physical file. Passing a TCP/IP socket wrapped with the makefile call to the pickler
+allows us to ship serialized Python objects over the Internet, without having to pickle
+to byte strings ourselves and call raw socket methods manually. This is an alternative
+to using the pickle module’s string-based calls (dumps, loads) with socket send and recv calls, and might offer more flexibility for software that must support a variety of
+transport mechanisms.
+
+More generally, any component that expects a file-like method protocol will gladly
+accept a socket wrapped with a socket object makefile call. Such interfaces will also
+accept strings wrapped with the built-in io.StringIO class, and any other sort of object
+that supports the same kinds of method calls as built-in file objects. As always in Python,
+we code to protocols—object interfaces—not to specific datatypes.More generally, any component that expects a file-like method protocol will gladly
+accept a socket wrapped with a socket object makefile call. Such interfaces will also
+accept strings wrapped with the built-in io.StringIO class, and any other sort of object
+that supports the same kinds of method calls as built-in file objects. As always in Python,
+we code to protocols—object interfaces—not to specific datatypes.
