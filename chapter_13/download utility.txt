@@ -1,0 +1,74 @@
+So just how would we go about writing such an FTP interface wrapper (he asks, rhetorically)?
+Given the ftplib library module, wrapping downloads of a particular file in
+a particular directory is straightforward. Connected FTP objects support two download
+methods:
+
+    retrbinary
+        This method downloads the requested file in binary mode, sending its bytes in
+        chunks to a supplied function, without line-feed mapping. Typically, the supplied
+        function is a write method of an open local file object, such that the bytes are placed
+        in the local file on the client.
+    
+    retrlines
+        This method downloads the requested file in ASCII text mode, sending each line
+        of text to a supplied function with all end-of-line characters stripped. Typically,
+        the supplied function adds a \n newline (mapped appropriately for the client machine),
+        and writes the line to a local file.
+
+
+# getfile.py
+This module is mostly just a repackaging of the FTP code we used to fetch the image
+file earlier, to make it simpler and reusable. Because it is a callable function, the exported
+getfile.getfile here tries to be as robust and generally useful as possible, but even a
+function this small implies some design decisions. Here are a few usage notes:
+
+    FTP mode
+        The getfile function in this script runs in anonymous FTP mode by default, but
+        a two-item tuple containing a username and password string may be passed to the
+        user argument in order to log in to the remote server in nonanonymous mode. To
+        use anonymous FTP, either don’t pass the user argument or pass it an empty tuple,
+        (). The FTP object login method allows two optional arguments to denote a username
+        and password, and the function(*args) call syntax in Example 13-4 sends
+        it whatever argument tuple you pass to user as individual arguments.
+    
+    Processing modes
+        If passed, the last two arguments (verbose, refetch) allow us to turn off status
+        messages printed to the stdout stream (perhaps undesirable in a GUI context) and
+        to force downloads to happen even if the file already exists locally (the download
+        overwrites the existing local file).
+
+    Exception protocol
+        The caller is expected to handle exceptions; this function wraps downloads in a
+        try/finally statement to guarantee that the local output file is closed, but it lets
+        exceptions propagate. If used in a GUI or run from a thread, for instance, exceptions
+        may require special handling unknown in this file. 
+
+    Self-test
+        If run standalone, this file downloads an image file again from my website as a selftest
+        (configure for your server and file as desired), but the function will normally
+        be passed FTP filenames, site names, and directory names as well.   
+
+    File mode
+        this script is careful to open the local output file in wb binary
+        mode to suppress end-line mapping and conform to Python 3.X’s Unicode string
+        model.
+
+        It’s not impossible that true binary datafiles
+        may have bytes whose value is equal to a \n line-feed character; opening in w text
+        mode instead would make these bytes automatically expand to a \r\n two-byte
+        sequence when written locally on Windows.
+
+        binary mode is required to suppress the
+        automatic Unicode translations performed for text in Python 3.X. Without binary
+        mode, Python would attempt to encode fetched data when written per a default
+        or passed Unicode encoding scheme, which might fail for some types of fetched
+        text and would normally fail for truly binary data such as images and audio.
+
+    Directory model
+        This function currently uses the same filename to identify both the remote file and
+        the local file where the download should be stored.
+
+        As such, it should be run in the directory where you want the file to show up; 
+        use os.chdir to move to directories if needed.
+
+    
