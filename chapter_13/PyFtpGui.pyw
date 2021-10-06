@@ -10,7 +10,7 @@ import os, sys
 print('Running in: ', os.getcwd())
 
 # PP3E
-# from PP4E.Launcher import findFirst
+# from chapter_6.Launcher import findFirst
 # mydir = os.path.split(findFirst(os.curdir, 'PyFtpGui.pyw'))[0]
 
 # PP4E
