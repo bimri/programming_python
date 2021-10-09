@@ -1,0 +1,25 @@
+Some of the other most common, higher-level Internet protocols have to do with reading
+and sending email messages: POP and IMAP for fetching email from servers, SMTP
+for sending new messages, and other formalisms such as RFC822 for specifying email
+message content and format.
+
+You don’t normally need to know about such acronyms
+when using common email tools, but internally, programs like Microsoft Outlook and
+webmail systems generally talk to POP and SMTP servers to do your bidding.
+
+Like FTP, email ultimately consists of formatted commands and byte streams shipped
+over sockets and ports (port 110 for POP; 25 for SMTP). Regardless of the nature of its
+content and attachments, an email message is little more than a string of bytes sent and
+received through sockets.
+
+But also like FTP, Python has standard library modules to
+simplify all aspects of email processing:
+    • poplib and imaplib for fetching email
+    • smtplib for sending email
+    • The email module package for parsing email and constructing email
+These modules are related: for nontrivial messages, we typically use email to parse mail
+text which has been fetched with poplib and use email to compose mail text to be sent
+with smtplib. The email package also handles tasks such as address parsing, date and
+time formatting, attachment formatting and extraction, and encoding and decoding of
+email content (e,g, uuencode, Base64). Additional modules handle more specific tasks
+(e.g., mimetypes to map filenames to and from content types).
