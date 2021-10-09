@@ -1,0 +1,41 @@
+Python 3.X’s Unicode string model for real-world programming. In short:
+    • All binary mode transfers should open local output and input files in binary mode
+    (modes wb and rb).
+    • Text-mode downloads should open local output files in text mode with explicit
+    encoding names (mode w, with an encoding argument that defaults to latin1 within
+    ftplib itself).
+    • Text-mode uploads should open local input files in binary mode (mode rb).
+
+Fetching
+    The poplib module returns fetched email text in bytes string form. Command text
+    sent to the server is encoded per UTF8 internally, but replies are returned as raw
+    binary bytes and not decoded into str text.
+
+Sending
+    The smtplib module accepts email content to send as str strings. Internally, message
+    text passed in str form is encoded to binary bytes for transmission using the
+    ascii encoding scheme. Passing an already encoded bytes string to the send call
+    may allow more explicit control.
+
+Composing
+    The email package produces Unicode str strings containing plain text when generating
+    full email text for sending with smtplib and accepts optional encoding
+    specifications for messages and their parts, which it applies according to email
+    standard rules. Message headers may also be encoded per email, MIME, and Unicode
+    conventions.
+
+Parsing
+    The email package in 3.1 currently requires raw email byte strings of the type
+    fetched with poplib to be decoded into Unicode str strings as appropriate before
+    it can be passed in to be parsed into a message object. This pre-parse decoding
+    might be done by a default, user preference, mail headers inspection, or intelligent
+    guess. Because this requirement raises difficult issues for package clients, it may be
+    dropped in a future version of email and Python.
+
+Navigating
+    The email package returns most message components as str strings, though parts
+    content decoded by Base64 and other email encoding schemes may be returned as
+    bytes strings, parts fetched without such decoding may be str or bytes, and some
+    str string parts are internally encoded to bytes with scheme raw-unicode-escape
+    before processing. Message headers may be decoded by the package on request as
+    well.
