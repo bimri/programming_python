@@ -1,0 +1,48 @@
+"email: Parsing and Composing Mail Content"
+
+email package—a powerful collection of tools that automate most of the work
+behind parsing and composing email messages. This module gives us an object-based
+message interface and handles all the textual message structure details, both analyzing
+and creating it. Not only does this eliminate a whole class of potential bugs, it also
+promotes more advanced mail processing.
+
+Things like attachments, for instance, become accessible to mere mortals (and authors
+with limited book real estate). In fact, an entire original section on manual attachment
+parsing and decoding was deleted in the third edition—it’s essentially automatic with
+email. The new package parses and constructs headers and attachments; generates
+correct email text; decodes and encodes Base64, quoted-printable, and uuencoded
+data; and much more.
+
+In a nutshell, the email package is based around the Message
+object it provides:
+    Parsing mail
+        A mail’s full text, fetched from poplib or imaplib, is parsed into a new Message
+        object, with an API for accessing its components. In the object, mail headers become
+        dictionary-like keys, and components become a “payload” that can be
+        walked with a generator interface.
+    Creating mail
+        New mails are composed by creating a new Message object, using an API to attach
+        headers and parts, and asking the object for its print representation—a correctly
+        formatted mail message text, ready to be passed to the smtplib module for delivery.
+        Headers are added by key assignment and attachments by method calls.
+
+
+'Message Objects'
+Each Message consists of three main pieces of information:
+    Type 
+        A content type (plain text, HTML text, JPEG image, and so on), encoded as a
+        MIME main type and a subtype. For instance, “text/html” means the main type is
+        text and the subtype is HTML (a web page); “image/jpeg” means a JPEG photo.
+        A “multipart/mixed” type means there are nested parts within the message.
+    
+    Headers
+        A dictionary-like mapping interface, with one key per mail header (From, To, and
+        so on). This interface supports almost all of the usual dictionary operations, and
+        headers may be fetched or set by normal key indexing.
+    
+    Content
+        A “payload,” which represents the mail’s content. This can be either a string
+        (bytes or str) for simple messages, or a list of additional Message objects for
+        multipart container messages with attached or alternative parts. For some oddball
+        types, the payload may be a Python None object.\
+    
