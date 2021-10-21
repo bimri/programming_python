@@ -62,3 +62,12 @@ if not formatted:
 else:
     print('Content-type: text/html\n')         # wrap up in HTML
     print(html % (filename, cgi.escape(filetext)))
+
+
+'''
+This Python server-side script simply extracts the filename from the parsed CGI inputs
+object and reads and prints the text of the file to send it to the client browser. Depending
+on the formatted global variable setting, it sends the file in either plain text mode (using
+text/plain in the response header) or wrapped up in an HTML page definition (text/
+html).
+'''
