@@ -42,3 +42,4 @@ for lang in hellos:                        # we could sort keys too
     options.append('<option>' + lang)      # wrap table keys in HTML code
 options = '\n\t'.join(options)
 print(REPLY % (inputkey, options))         # field name and values from module
+
