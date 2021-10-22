@@ -1,0 +1,22 @@
+Persistent data—the kind that outlives a program that creates it.
+(That’s not true by default for objects a script constructs, of course; things
+like lists, dictionaries, and even class instance objects live in your computer’s memory
+and are lost as soon as the script ends.)
+
+In Python programming, there are today at least six traditional ways to
+save information in between program executions:
+    Flat files
+        Text and bytes stored directly on your computer
+    DBM keyed files
+        Keyed access to strings stored in dictionary-like files
+    Pickled objects
+        Serialized Python objects saved to files and streams
+    Shelve files
+        Pickled Python objects saved in DBM keyed files
+    Object-oriented databases (OODBs)
+        Persistent Python objects stored in persistent dictionaries (ZODB, Durus)
+    SQL relational databases (RDBMSs)
+        Table-based storage that supports SQL queries (SQLite, MySQL, PostGreSQL,
+        etc.)
+    Object relational mappers (ORMs)
+        Mediators that map Python classes to relational tables (SQLObject, SQLAlchemy)
