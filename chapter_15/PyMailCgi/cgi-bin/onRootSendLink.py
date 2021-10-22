@@ -1,3 +1,9 @@
+"The Message Composition Page"
+'''
+The root page Send function steps users through two other pages: one to edit a message
+and one to confirm delivery.
+'''
+
 #!/usr/bin/python
 """
 ################################################################################

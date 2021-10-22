@@ -1,5 +1,3 @@
-"The Send Mail Script"
-
 #!/usr/bin/python
 """
 ################################################################################
@@ -94,10 +92,3 @@ except:
     commonhtml.errorpage('Send mail error')
 else:
     commonhtml.confirmationpage('Send mail')
-
-
-'''
-This script gets mail header and text input information from the edit page’s form
-from query parameters in an explicit URL) and sends the message off using Python’s
-standard smtplib module
-'''
