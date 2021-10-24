@@ -1,0 +1,29 @@
+Changing Classes of Objects Stored in Shelves
+
+Technically, Python reimports a class to re-create its stored instances as they are fetched
+and unpickled. Here’s how this works:
+    Store
+        When Python pickles a class instance to store it in a shelve, it saves the instance’s
+        attributes plus a reference to the instance’s class. In effect, pickled class instances
+        in the prior example record the self attributes assigned in the class. Really, Python
+        serializes and stores the instance’s __dict__ attribute dictionary along with enough
+        source file information to be able to locate the class’s module later—the names of
+        the instance’s class as well as its class’s enclosing module.
+    Fetch
+        When Python unpickles a class instance fetched from a shelve, it re-creates the
+        instance object in memory by reimporting the class using the save class and module
+        name strings, assigning the saved attribute dictionary to a new empty instance, and
+        linking the instance back to the class. This is be default, and it can be tailored by
+        defining special methods that will be called by pickle to fetch and store instance
+        state
+
+
+The key point in this is that the class and stored instance data are separate. The class
+itself is not stored with its instances, but is instead located in the Python source file and
+reimported later when instances are fetched.
+
+The downside of this model is that the class must be importable to load instances off
+a shelve (more on this in a moment). The upside is that by modifying external classes
+in module files, we can change the way stored objects’ data is interpreted and used
+without actually having to change those stored objects. It’s as if the class is a program
+that processes stored records.
