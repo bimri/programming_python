@@ -1,7 +1,8 @@
-"""
+"Storing Class Instances in Shelves"
+'''
 a person object: fields + behavior
 change: the tax method is now a computed attribute
-"""
+'''
 
 class Person:
     def __init__(self, name, job, pay=0):
@@ -17,3 +18,11 @@ class Person:
 
     def info(self):
         return self.name, self.job, self.pay, self.tax
+
+
+'''
+Notice that calling Bob’s tax method works even though we didn’t import the Person
+class in this last session. Python is smart enough to link this object back to its original
+class when unpickled, such that all the original methods are available through fetched
+objects.
+'''
