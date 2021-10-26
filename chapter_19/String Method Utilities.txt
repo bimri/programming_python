@@ -1,0 +1,29 @@
+str.find(substr)
+    Performs substring searches
+str.replace(old, new)
+    Performs substring substitutions
+str.split(delimiter)
+    Chops up a string around a delimiter or whitespace
+str.join(iterable)
+    Puts substrings together with delimiters between
+str.strip()
+    Removes leading and trailing whitespace
+str.rstrip()
+    Removes trailing whitespace only, if any
+str.rjust(width)
+    Right-justifies a string in a fixed-width field
+str.upper()
+    Converts to uppercase
+str.isupper()
+    Tests whether the string is uppercase
+str.isdigit()
+    Tests whether the string is all digit characters
+str.endswith(substr-or-tuple)
+    Tests for a substring (or a tuple of alternatives) at the end
+str.startswith(substr-or-tuple)
+    Tests for a substring (or a tuple of alternatives) at the front
+
+
+For the full list of string methods, run a dir(str) call at the Python
+interactive prompt and run help(str.method) on any method for some quick documentation.
+    
